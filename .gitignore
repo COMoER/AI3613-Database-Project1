@@ -265,3 +265,5 @@ docs/dev
 .vagrant
 
 doc/*
+# test file
+test.db
