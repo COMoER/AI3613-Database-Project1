@@ -263,3 +263,5 @@ docs/dev
 
 # Vagrant
 .vagrant
+
+doc/*
