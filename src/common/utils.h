@@ -26,13 +26,13 @@ constexpr std::vector<T> make_vector_inner(std::vector<T> &&vec) {
 }
 
 template <typename T, typename... Ts>
-constexpr std::vector<T> make_vector_inner(std::vector<T> &&vec, T &&first_element, Ts &&...elements) {
+constexpr std::vector<T> make_vector_inner(std::vector<T> &&vec, T &&first_element, Ts &&... elements) {
     vec.emplace_back(std::move(first_element));
     return make_vector_inner(std::move(vec), std::move(elements)...);
 }
 
 template <typename... Ts>
-constexpr std::vector<first<Ts...>> make_vector(Ts &&...elements) {
+constexpr std::vector<first<Ts...>> make_vector(Ts &&... elements) {
     return make_vector_inner({}, std::move(elements)...);
 }
 }  // namespace naivedb

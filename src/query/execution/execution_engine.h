@@ -1,8 +1,9 @@
 #pragma once
 
 #include "common/macros.h"
-#include <vector>
 #include "query/execution/executor_context.h"
+
+#include <vector>
 
 namespace naivedb {
 namespace buffer {
