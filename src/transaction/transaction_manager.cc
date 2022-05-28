@@ -78,6 +78,8 @@ void TransactionManager::rollback(Transaction *txn) {
     // TODO(Project-2 Part-C): Implement this method
     // iterate back from txn's lsn and use TablePage's method to undo the update
     UNIMPLEMENTED;
+    auto log = log_manager_->get_record(txn->lsn());
+//    log.
 }
 
 void TransactionManager::release_all_locks(Transaction *txn) {
