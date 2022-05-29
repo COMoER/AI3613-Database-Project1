@@ -77,9 +77,40 @@ void TransactionManager::rollback(Transaction *txn) {
     }
     // TODO(Project-2 Part-C): Implement this method
     // iterate back from txn's lsn and use TablePage's method to undo the update
-    UNIMPLEMENTED;
-    auto log = log_manager_->get_record(txn->lsn());
-//    log.
+//    UNIMPLEMENTED;
+    lsn_t now_lsn = txn->lsn();
+    while(now_lsn!=INVALID_LSN)
+    {
+        log::LogRecord log = log_manager_->get_record(now_lsn);
+        if(log.txn_id()==txn->transaction_id())
+        {
+            // if reach begin then break
+            if(log.type()==log::LogRecordType::Update)
+            {
+                // if update, change it to origin value
+                auto page = buffer_manager_->fetch_page(log.page_id());
+                if (!page) {
+                    UNREACHABLE;
+                }
+                storage::TablePage table_page = storage::TablePage(*std::move(page));
+                table_page.update_tuple(log.slot_id(),storage::Tuple(log.old_data()));
+            }
+//            else if(log.type() == log::LogRecordType::Abort
+//            || log.type()==log::LogRecordType::Commit
+//            || log.type()==log::LogRecordType::Begin)
+//            {
+//                // if end
+//                break;
+//            }
+//            else
+//            {
+//                UNREACHABLE;
+//            }
+            // no compensate record
+        }
+        now_lsn = log.prev_lsn();
+    }
+
 }
 
 void TransactionManager::release_all_locks(Transaction *txn) {

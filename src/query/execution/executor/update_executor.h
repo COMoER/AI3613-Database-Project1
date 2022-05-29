@@ -25,5 +25,7 @@ class UpdateExecutor : public Executor {
     const catalog::Schema *table_schema_;
     storage::TableHeap::Iterator table_iter_;
     // TODO(Project-1): Add more members if you need
+    transaction::Transaction* txn;
+    lock::LockManager* lock_manager_;
 };
 }  // namespace naivedb::query

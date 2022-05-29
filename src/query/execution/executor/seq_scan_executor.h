@@ -24,5 +24,7 @@ class SeqScanExecutor : public Executor {
     std::unique_ptr<storage::TableHeap> table_heap_;
     storage::TableHeap::Iterator table_iter_;
     // TODO(Project-1): Add more members if you need
+    transaction::Transaction* txn;
+    lock::LockManager* lock_manager_;
 };
 }  // namespace naivedb::query

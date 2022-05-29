@@ -271,3 +271,4 @@ docs/dev
 doc/*
 # test file
 test.db
+test.log.db
